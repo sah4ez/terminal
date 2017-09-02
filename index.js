@@ -288,7 +288,13 @@ $(document).ready(function () {
     function printFiles() {
         replaceInput();
         currentDirectory.contents.forEach(function (file) {
-            $("#terminalOutput").append(file.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+            var prefix = "";
+            var postfix = "";
+            if (file.isDir){
+                prefix = '<span class="dir">';
+                postfix = '</span>';
+            }
+            $("#terminalOutput").append(prefix + file.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + postfix);
         })
         $("#terminalOutput").append('<br>');
         addInput();

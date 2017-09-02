@@ -56,16 +56,6 @@ div#fileBar span {
     cursor: default;
 }
 
-div#terminalInput {
-    color: white;
-    font-family: 'Ubuntu Mono';
-    font-size: 16px;
-    border: none;
-    outline: none;
-    background: none;
-    width: 70%;
-}
-
 input#terminalInput {
     color: white;
     font-family: 'Ubuntu Mono';
@@ -90,5 +80,17 @@ div#terminalOutput {
     position: relative;
 }
 
+.dir {
+    color: green !important;
+}
 
+a:link {
+    color: rgb(42, 36, 233);
+}
+a:visited {
+    color: rgb(22, 19, 126);
+}
+a:hover {
+    color: #ff3300;
+}
 /*End terminal*/
