@@ -31,14 +31,17 @@ var manDescriptions = [];
 
 var bio = new File('bio', 'I\'m software engineer, and work with javaEE applications,' +
             ' microservices and chat-bots. I work in the mode: Eat, sleep, code, repeat.');
+var contact = new File('contact', '<a href="https://www.linkedin.com/in/alexandr-kozlenkov-276919a2/">LinkedIn</a><br>' +
+    '<a href="https://github.com/sah4ez">GitHub</a><br>' +
+    // '<a href="https://bryansk.hh.ru/resume/da5a220fff03788c640039ed1f65503232354c">HH</a><br>' +
+    'sah4ez32 [at] gmail.com');
 var aboutDir = new Directory('about', [bio], null, true);
-var allFiles = [];
 var user = '$ ';
 var commandHistory = [];
 var backgroundColorList = ['#141414', '#7F2F2A', '#66CC76', '#5E2957', '#52A7FF', '#CCC045'];
 var commandIndex = -1;
 
-var currentDirectory = new Directory('root', [aboutDir], null, true);
+var currentDirectory = new Directory('root', [aboutDir, contact], null, true);
 
 function Directory(name, contents, previous) {
     this.name = name;
@@ -399,11 +402,17 @@ $(document).ready(function () {
             }
         }
     }
+    
+    function input(comand) {
+        $("#terminalInput").val(comand);
+        sendCommand(comand);
+    }
 
     if (isFirst) {
         addInput();
-        var start_command = "cat about/bio";
-        $("#terminalInput").val(start_command);
-        sendCommand(start_command)
+        input("ls");
+        input("cat about/bio");
+        input("cat contact");
+        input("help");
     }
 });
