@@ -29,15 +29,16 @@ var commandList = [{
 }]
 var manDescriptions = [];
 
-var aboutFile = new File('about.txt', 'This is an experiment to see how much of the linux terminal can be replicated using only Javascript/Jquery/Html/Css.');
-
-var allFiles = ['about.txt'];
-var user = 'root@user:~$';
+var bio = new File('bio', 'I\'m software engineer, and work with javaEE applications,' +
+            ' microservices and chat-bots. I work in the mode: Eat, sleep, code, repeat.');
+var aboutDir = new Directory('about', [bio], null, true);
+var allFiles = [];
+var user = '$ ';
 var commandHistory = [];
 var backgroundColorList = ['#141414', '#7F2F2A', '#66CC76', '#5E2957', '#52A7FF', '#CCC045'];
 var commandIndex = -1;
 
-var currentDirectory = new Directory('root', [aboutFile], null, true);
+var currentDirectory = new Directory('root', [aboutDir], null, true);
 
 function Directory(name, contents, previous) {
     this.name = name;
@@ -85,6 +86,8 @@ var currentBrowser = function () {
     }
 }
 
+var isFirst = true;
+
 //Jquery initializers
 $(document).ready(function () {
     function Directory(name, contents, previous) {
@@ -93,6 +96,7 @@ $(document).ready(function () {
         this.previous = previous;
         this.isDir = true;
     }
+
     //Issues with IE showing the input when opacity at 0, so we add it when the section is clicked
     //Make it more realistic, anywhere they click in the terminal will focus the text field.
     $("#terminal").click(function () {
@@ -108,50 +112,50 @@ $(document).ready(function () {
             return;
         }
         switch (command) {
-        case '':
-            updateInput();
-            break;
-        case 'ls':
-            printFiles();
-            break;
-        case 'cat':
-            if (!secondary)
+            case '':
+                updateInput();
                 break;
-            printFile(secondary);
-            break;
-        case 'continue':
-            unlockPage();
-            break;
-        case 'help':
-            printList(commandList);
-            break;
-        case 'clear':
-            clear();
-            break;
-        case 'man':
-            if (secondary)
-                man(secondary);
-            break;
-        case 'ps':
-            //The input has issues with multiple spaces, so we use &nbsp;
-            replaceInput();
-            $("#terminalOutput").append("PID TTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TIME CMD<br>" +
-                '6258 pts/1&nbsp;&nbsp;    00:00:00 bash<br>' +
-                '7334 pts/1&nbsp;&nbsp;    00:00:00 ps<br>' +
-                '8942 pts/1&nbsp;&nbsp;    00:00:00 ' + currentBrowser() + '<br>');
-            addInput();
-            break;
-        case 'mkdir':
-            mkdir(secondary);
-            break;
-        case 'cd':
-            cd(secondary);
-            break;
-        case 'touch':
-            touch(secondary);
-            break;
-        default:
-            printToOutput('Invalid command \"' + command + '"<br>type "help" for more options');
+            case 'ls':
+                printFiles();
+                break;
+            case 'cat':
+                if (!secondary)
+                    break;
+                printFile(secondary);
+                break;
+            case 'continue':
+                unlockPage();
+                break;
+            case 'help':
+                printList(commandList);
+                break;
+            case 'clear':
+                clear();
+                break;
+            case 'man':
+                if (secondary)
+                    man(secondary);
+                break;
+            case 'ps':
+                //The input has issues with multiple spaces, so we use &nbsp;
+                replaceInput();
+                $("#terminalOutput").append("PID TTY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TIME CMD<br>" +
+                    '6258 pts/1&nbsp;&nbsp;    00:00:00 bash<br>' +
+                    '7334 pts/1&nbsp;&nbsp;    00:00:00 ps<br>' +
+                    '8942 pts/1&nbsp;&nbsp;    00:00:00 ' + currentBrowser() + '<br>');
+                addInput();
+                break;
+            case 'mkdir':
+                mkdir(secondary);
+                break;
+            case 'cd':
+                cd(secondary);
+                break;
+            case 'touch':
+                touch(secondary);
+                break;
+            default:
+                printToOutput('Invalid command \"' + command + '"<br>type "help" for more options');
         }
     }
 
@@ -180,9 +184,9 @@ $(document).ready(function () {
                 currentDirectory = currentDirectory.previous;
             }
         } else {
-            currentDirectory.contents.forEach(function (file) {
-                if (file.name == directory) {
-                    currentDirectory = file;
+            currentDirectory.contents.forEach(function (dir) {
+                if (dir.name == directory) {
+                    currentDirectory = dir;
                 }
             })
         }
@@ -243,21 +247,36 @@ $(document).ready(function () {
 
     //Print the given file, usually used with "cat"
     function printFile(file) {
-        for (var i = 0; i < currentDirectory.contents.length; i++) {
-            var entity = currentDirectory.contents[i];
-            if (entity.name == file && !entity.isDir) {
-                printToOutput(entity.content);
-                return;
+        var path = file.split('/');
+        var start = currentDirectory;
+        var contains = currentDirectory.contents.length;
+        var find = false;
+        path.forEach(function (cur) {
+            for (var i = 0; i < contains; i++) {
+                var entity = currentDirectory.contents[i];
+                if (entity.name == cur && !entity.isDir) {
+                    printToOutput(entity.content);
+                    find = true;
+                    return;
+                }
+                if (entity.name == cur && entity.isDir) {
+                    currentDirectory = entity;
+                    i = 0;
+                    contains = currentDirectory.contents.length;
+                }
             }
+        });
+        currentDirectory = start;
+        if (!find){
+            printToOutput('"' + file + '"' + ' is an invalid file name or a directory.  Try typing "ls".');
         }
-        printToOutput('"' + file + '"' + ' is an invalid file name or a directory.  Try typing "ls".');
     }
 
     //Used for "help", prints the valid terminal commands
     function printList(list) {
         replaceInput();
         list.forEach(function (result) {
-            $("#terminalOutput").append(result + '<br>');
+            $("#terminalOutput").append(result.name + ' - ' + result.description + '<br>');
         })
         addInput();
     }
@@ -380,5 +399,11 @@ $(document).ready(function () {
             }
         }
     }
-    addInput();
+
+    if (isFirst) {
+        addInput();
+        var start_command = "cat about/bio";
+        $("#terminalInput").val(start_command);
+        sendCommand(start_command)
+    }
 });

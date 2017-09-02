@@ -15,12 +15,15 @@ div#terminalWrapper {
 
 div#terminal {
     min-width: 250px;
+    max-width: 1200px;
+
     min-height: 300px;
+    max-height: 600px;
     position: relative;
     margin: auto;
-    top: 30vh;
-    height: 40vh;
-    width: 600px;
+    top: 10vh;
+    height: 120vh;
+    width: 1200px;
     font-family: 'Ubuntu Mono';
     font-size: 16px;
     overflow: hidden;
@@ -31,7 +34,7 @@ div#terminal {
 }
 
 div#fileBar {
-    width: 100%;
+    width: 109%;
     height: 20px;
     color: white;
     position: relative;
@@ -51,6 +54,16 @@ div#fileBar {
 div#fileBar span {
     padding-left: 10px;
     cursor: default;
+}
+
+div#terminalInput {
+    color: white;
+    font-family: 'Ubuntu Mono';
+    font-size: 16px;
+    border: none;
+    outline: none;
+    background: none;
+    width: 70%;
 }
 
 input#terminalInput {
