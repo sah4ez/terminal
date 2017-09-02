@@ -30,7 +30,7 @@ var commandList = [{
 var manDescriptions = [];
 
 var bio = new File('bio', 'I\'m software engineer, and work with javaEE applications,' +
-            ' microservices and chat-bots. I work in the mode: Eat, sleep, code, repeat.');
+    ' microservices and chat-bots. I work in the mode: Eat, sleep, code, repeat.');
 var contact = new File('contact', '<a href="https://www.linkedin.com/in/alexandr-kozlenkov-276919a2/">LinkedIn</a><br>' +
     '<a href="https://github.com/sah4ez">GitHub</a><br>' +
     // '<a href="https://bryansk.hh.ru/resume/da5a220fff03788c640039ed1f65503232354c">HH</a><br>' +
@@ -40,6 +40,7 @@ var user = '$ ';
 var commandHistory = [];
 var backgroundColorList = ['#141414', '#7F2F2A', '#66CC76', '#5E2957', '#52A7FF', '#CCC045'];
 var commandIndex = -1;
+var input;
 
 var currentDirectory = new Directory('root', [aboutDir, contact], null, true);
 
@@ -270,7 +271,7 @@ $(document).ready(function () {
             }
         });
         currentDirectory = start;
-        if (!find){
+        if (!find) {
             printToOutput('"' + file + '"' + ' is an invalid file name or a directory.  Try typing "ls".');
         }
     }
@@ -290,8 +291,15 @@ $(document).ready(function () {
         currentDirectory.contents.forEach(function (file) {
             var prefix = "";
             var postfix = "";
-            if (file.isDir){
-                prefix = '<span class="dir">';
+            if (file.isDir) {
+                if (file.name == 'about') {
+                    prefix = '<span class="dir" onclick="input(\'cat about/bio\')">';
+                } else {
+                    prefix = '<span class="dir">';
+                }
+                postfix = '</span>';
+            } else if (file.name == 'contact' && !file.isDir) {
+                prefix = '<span class="file" onclick="input(\'cat contact\')">';
                 postfix = '</span>';
             }
             $("#terminalOutput").append(prefix + file.name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + postfix);
@@ -408,17 +416,17 @@ $(document).ready(function () {
             }
         }
     }
-    
-    function input(comand) {
-        $("#terminalInput").val(comand);
-        sendCommand(comand);
+
+    this.input = function (command) {
+        $("#terminalInput").val(command);
+        sendCommand(command);
     }
 
     if (isFirst) {
         addInput();
-        input("ls");
-        input("cat about/bio");
-        input("cat contact");
-        input("help");
+        this.input("ls");
+        this.input("cat about/bio");
+        this.input("cat contact");
+        this.input("help");
     }
 });

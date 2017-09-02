@@ -5,7 +5,6 @@ body {
     background: #323232;
 }
 
-
 /*Terminal*/
 
 div#terminalWrapper {
@@ -46,7 +45,7 @@ div#fileBar {
     background: linear-gradient(top, #A9A9A9 0%, #333333 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #595959), color-stop(100%, #404040));
     background: -moz-linear-gradient(top, #A9A9A9 0%, #333333 100%);
-    filter: progid: DXImageTransform.Microsoft.Gradient(startColorstr='#595959', endColorstr='#404040', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#595959', endColorstr='#404040', GradientType=0);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
@@ -80,6 +79,14 @@ div#terminalOutput {
     position: relative;
 }
 
+.file:hover {
+    cursor: hand;
+}
+
+.dir:hover {
+    cursor: hand;
+}
+
 .dir {
     color: green !important;
 }
@@ -87,10 +94,13 @@ div#terminalOutput {
 a:link {
     color: rgb(42, 36, 233);
 }
+
 a:visited {
     color: rgb(22, 19, 126);
 }
+
 a:hover {
     color: #ff3300;
 }
+
 /*End terminal*/
