@@ -33,6 +33,7 @@ var bio = new File('bio', 'I\'m software engineer. My last projects it\'s differ
 var contact = new File('contact', '<a href="https://www.linkedin.com/in/alexandr-kozlenkov-276919a2/">LinkedIn</a><br>' +
     '<a href="https://github.com/sah4ez">GitHub</a><br>' +
     '<a href="https://t.me/sah4ez">telegram</a><br>' +
+    '<a href="https://www.upwork.com/freelancers/~01d5224614c420d5a1">upwork</a><br>' +
     // '<a href="https://bryansk.hh.ru/resume/da5a220fff03788c640039ed1f65503232354c">HH</a><br>' +
     'sah4ez32 [at] gmail.com');
 var aboutDir = new Directory('about', [bio], null, true);
