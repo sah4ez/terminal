@@ -29,10 +29,10 @@ var commandList = [{
 }]
 var manDescriptions = [];
 
-var bio = new File('bio', 'I\'m software engineer. My last projects it\'s different backend via microservices, chat-bots and single page applications. My stack go, java, python 3, RDBM, NoSQL DB, queues, kubernetes/helm/docker and etc. I\'m work remotly. I\'m command player, but can work single.');
+var bio = new File('bio', 'I\'m software engineer. My last projects it\'s different backend via microservices, chat-bots and single page applications. My stack go, java, python3, RDBM, NoSQL DB, queues, kubernetes/helm/docker and etc. I\'m work remotly. I\'m command player, but can work single.');
 var contact = new File('contact', '<a href="https://www.linkedin.com/in/alexandr-kozlenkov-276919a2/">LinkedIn</a><br>' +
     '<a href="https://github.com/sah4ez">GitHub</a><br>' +
-    '<a href="https://t.me/sah4ez">sah4ez</a><br>' +
+    '<a href="https://t.me/sah4ez">telegram</a><br>' +
     // '<a href="https://bryansk.hh.ru/resume/da5a220fff03788c640039ed1f65503232354c">HH</a><br>' +
     'sah4ez32 [at] gmail.com');
 var aboutDir = new Directory('about', [bio], null, true);
