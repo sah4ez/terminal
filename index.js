@@ -29,7 +29,13 @@ var commandList = [{
 }]
 var manDescriptions = [];
 
-var bio = new File('bio', 'I\'m software engineer. My last projects it\'s different backend via microservices, chat-bots and single page applications. My stack go, java, python3, RDBM, NoSQL DB, queues, kubernetes/helm/docker and etc. I\'m work remotly. I\'m command player, but can work single.');
+var bio = new File('bio', 'What did I do as a software engineer?<br>'+
+	'I wrote backends for differents projects on Go, Python, Java, and other languages.<br>'+
+	'I did architecture for backends using patterns microservices and monolith.<br>'+
+	'I built a CI/CD pipeline for delivering our code to production and have strong expertise in immutable infrastructure within Kubernetes.<br>'+
+	'I built a data pipeline with the ELT process using the Anchor model and 6NF.<br>'+
+	'Also, sometimes I wrote very simple frontend applications.<br>'+
+	'I like open-source software development and have several projects on Github, as for example cross-platform end-to-end <a href="https://github.com/sah4ez/pspk">encryption tools</a>.<br>');
 var contact = new File('contact', '<a href="https://www.linkedin.com/in/alexandr-kozlenkov-276919a2/">LinkedIn</a><br>' +
     '<a href="https://github.com/sah4ez">GitHub</a><br>' +
     '<a href="https://t.me/sah4ez">telegram</a><br>' +
